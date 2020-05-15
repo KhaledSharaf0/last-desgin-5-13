@@ -1,18 +1,19 @@
+////import 'dart:ui';
 //import 'file:///E:/khaled/finaldesign/finaldesgin/lib/ideas/addidea.dart';
 //import 'package:finaldesgin/ui/addjob.dart';
 //import 'package:flutter/material.dart';
 //
-//import 'login_page.dart';
-//import '../ideas/manageidea.dart';
+//import '../ui/login_page.dart';
+//import '../ui/managejob.dart';
 //
-//class ManageJob extends StatefulWidget {
+//class ManageIdea extends StatefulWidget {
 //  @override
 //  State<StatefulWidget> createState() {
-//    return new ManageJobState();
+//    return new ManageIdeaState();
 //  }
 //}
 //
-//class ManageJobState extends State<ManageJob> {
+//class ManageIdeaState extends State<ManageIdea> {
 //  @override
 //  Widget build(BuildContext context) {
 //    return new Scaffold(
@@ -29,7 +30,7 @@
 //                      fontWeight: FontWeight.bold,
 //                      fontSize: 25.0)),
 //              SizedBox(width: 10.0),
-//              Text('Jobs',
+//              Text('Ideas',
 //                  style: TextStyle(
 //                      fontFamily: 'Montserrat',
 //                      color: Colors.white,
@@ -38,50 +39,11 @@
 //          ),
 //          centerTitle: true,
 //          backgroundColor: Color(0xffEC7063),
+//          //backgroundColor: Color(0xFF0a2f52),
 //          //backgroundColor: Colors.deepPurpleAccent,
 //          //backgroundColor: Color(0xFF6E6E6),
 //        ),
-//
-//
-//
-//        body: new Center(
-//          child: ListView(
-//            children: <Widget>[
-//              Card(
-//                  margin: EdgeInsets.all(8),
-//                  elevation: 4.0,
-//                  child: Container(
-//                    padding: EdgeInsets.all(16),
-//                    child: Row(
-//                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                      children: <Widget>[
-//                        Row(
-//                          children: <Widget>[
-//                            Hero(
-////            tag: items[index],
-////              child: Image.asset(items[index].img),
-//                                ),
-//                            SizedBox(
-//                              width: 16,
-//                            ),
-//                            Text(
-//                              'kaled', //items[index].title,
-//                              style: TextStyle(
-//                                  fontSize: 18, fontWeight: FontWeight.bold),
-//                            ),
-//                          ],
-//                        ),
-//                        Icon(Icons.navigate_next, color: Colors.black38),
-//                      ],
-//                    ),
-//                  ))
-//            ],
-//          ),
-//        ),
-//
-//
-//
-//        /*new Container(
+//        body: new Container(
 //          child: new Center(
 //            child: new ListView(
 //              children: <Widget>[
@@ -692,21 +654,16 @@
 //            ),
 //          ),
 //        ),
-//        */
 //        drawer: Drawer(
-//          // elevation: 12.0,
 //          child: Column(
 //            children: [
 //              Container(
 //                height: 290.0,
-//                //flex: 1,
-//                //child: Container(
 //                alignment: Alignment.center,
-//                //padding: EdgeInsets.only(top: 20),
-//                //color: Colors.deepPurpleAccent,
 //                color: Color(0xFF0a2f52),
-//                //width: MediaQuery.of(context).size.width * 0.40,
-//                child: DrawerHeader(
+//                //color:Color(0xffEC7063),
+//                //color: Colors.deepPurpleAccent,
+//                child:  DrawerHeader(
 //                  //padding: EdgeInsets.only(top: 0),
 //                  //margin: EdgeInsets.only(left:  2),
 //                  decoration: BoxDecoration(
@@ -722,7 +679,10 @@
 //////                  "Main",
 //////                  style: TextStyle(fontSize: 30, color: Colors.white),
 //////                ),
+//
+//
 //                ),
+//
 //
 //                // ),
 //              ),
@@ -765,10 +725,8 @@
 //                              size: 25,
 //                            ),
 //                            onTap: () {
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => AddJobs()),
+//                              Navigator.push(context,
+//                                MaterialPageRoute(builder: (context) => AddJobs()),
 //                              );
 //                            },
 //                          ),
@@ -786,10 +744,8 @@
 //                              size: 25,
 //                            ),
 //                            onTap: () {
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => AddIdea()),
+//                              Navigator.push(context,
+//                                MaterialPageRoute(builder: (context) => AddIdea()),
 //                              );
 //                            },
 //                          ),
@@ -807,10 +763,8 @@
 //                              size: 25,
 //                            ),
 //                            onTap: () {
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => ManageJob()),
+//                              Navigator.push(context,
+//                                MaterialPageRoute(builder: (context) => ManageJob()),
 //                              );
 //                            },
 //                          ),
@@ -828,10 +782,8 @@
 //                              size: 25,
 //                            ),
 //                            onTap: () {
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => ManageIdea()),
+//                              Navigator.push(context,
+//                                MaterialPageRoute(builder: (context) => ManageIdea()),
 //                              );
 //                            },
 //                          ),
@@ -855,10 +807,7 @@
 //
 //                          FloatingActionButton(
 //                            onPressed: () {
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => MyLoginPage()),
+//                              Navigator.push(context, MaterialPageRoute(builder: (context) => MyLoginPage()),
 //                              );
 //                            },
 //                            tooltip: "Sign Out",
@@ -888,7 +837,6 @@
 //            ],
 //          ),
 //        )
-//
 //    );
 //  }
 //}

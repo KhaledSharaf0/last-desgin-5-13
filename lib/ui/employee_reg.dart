@@ -384,9 +384,9 @@ class _Employee extends State<Employee> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddJobs()),
-          );
+//          Navigator.push(context,
+//              MaterialPageRoute(builder: (context) => AddJobs()),
+//          );
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(

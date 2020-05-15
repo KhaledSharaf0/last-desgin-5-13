@@ -1,3 +1,4 @@
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,7 +8,7 @@ class DatabaseHelper{
   String serverUrl = "http://flutterapitutorial.codeforiraq.org/api";
   var status ;
 
-  var token ;
+  var auth_token ;
 
 
 
@@ -35,8 +36,8 @@ class DatabaseHelper{
       print('data : ${data['auth_token']}');
       _save('data ["auth_token"]');
     }
-    print('Response status : $statusCode');
-    print('Response body : $body');
+//    print('Response status : $statusCode');
+//    print('Response body : $body');
   }
 
 
@@ -74,11 +75,104 @@ class DatabaseHelper{
     // }
   }
 
+  void addDataIdea(String ideaTitle , String managementType , String ideaCategory  ,
+      String address ,String funding, String ideaDescription) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'auth_token';//'4E6pQe5VJv9anK1un9s7';
+    final value = prefs.get(key ) ?? 0;
+    //https://successsroadv2.herokuapp.com/ideas
+    String myUrl = "https://successsroadv2.herokuapp.com/api/v1/ideas";
+    http.post(myUrl,
+        headers: {
+          //'Accept':'*/*',
+          'Accept' :'application/json',
+          //token QW4BzRGsRtmU9ymjJhz8  ,4E6pQe5VJv9anK1un9s7
+          'Authorization' : ' $value',
+        },
+        body: {
+          //name of attrbuite
+          "title": "$ideaTitle",
+          "Management" :"$managementType",
+          "ideacatagory" : "$ideaCategory",
+          "address" :"$address",
+          "funding" :"$funding",
+          "ideaDescription" :"$ideaDescription"
+        }).then((response){
+      print('Response status : ${response.statusCode}');
+      print('Response body : ${response.body}');
+    });
+  }
+
+
+  Future<List> getData() async{
+
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'auth_token';//'4E6pQe5VJv9anK1un9s7';
+    final value = prefs.get(key ) ?? 0;
+
+    String myUrl = "https://successsroadv2.herokuapp.com/api/v1/ideas/";
+    http.Response response = await http.get(myUrl,
+        headers: {
+          //'Accept':'*/*',
+          'Accept' :'application/json',
+          'Authorization' : ' $value'
+        });
+    return json.decode(response.body);
+  }
+
+
+  void editDataIdea(int id , String ideaTitle , String managementType , String ideaCategory  ,
+      String address ,String funding, String ideaDescription) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'auth_token';//'4E6pQe5VJv9anK1un9s7';
+    final value = prefs.get(key ) ?? 0;
+
+    String myUrl = "https://successsroadv2.herokuapp.com/api/v1/ideas/$id";
+    http.put(myUrl,
+        headers: {
+          //'Accept':'*/*',
+          'Accept' :'application/json',
+          'Authorization' : ' $value'
+        },
+        body: {
+          "title": "$ideaTitle",
+          "Management" :"$managementType",
+          "ideacatagory" : "$ideaCategory",
+          "address" :"$address",
+          "funding" :"$funding",
+          "ideaDescription" :"$ideaDescription"
+        }).then((response){
+      print('Response status : ${response.statusCode}');
+      print('Response body : ${response.body}');
+    });
+  }
+
+
+
+
+
+
+  void deleteData(int id) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'auth_token';//'4E6pQe5VJv9anK1un9s7';
+    final value = prefs.get(key ) ?? 0;
+
+    String myUrl = "https://successsroadv2.herokuapp.com/api/v1/ideas/$id";
+    http.delete(myUrl,
+        headers: {
+          //'Accept':'*/*',
+          'Accept' :'application/json',
+          'Authorization' : ' $value'
+        } ).then((response){
+      print('Response status : ${response.statusCode}');
+      print('Response body : ${response.body}');
+    });
+  }
 
 
   _save(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    final key = 'token';
+    final key = 'auth_token';
     final value = token;
     prefs.setString(key, value);
   }
@@ -86,11 +180,18 @@ class DatabaseHelper{
 
   read() async {
     final prefs = await SharedPreferences.getInstance();
-    final key = 'token';
+    final key = 'auth_token';
     final value = prefs.get(key ) ?? 0;
     print('read : $value');
   }
 }
+
+
+
+
+
+
+
 
 
 /*

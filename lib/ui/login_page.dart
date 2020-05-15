@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:finaldesgin/controller/database_helper.dart';
-import 'package:finaldesgin/ui/addidea.dart';
+import 'file:///E:/khaled/finaldesign/finaldesgin/lib/ideas/addidea.dart';
 import 'package:finaldesgin/ui/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -166,7 +166,7 @@ class _MyLoginPage extends State<MyLoginPage> {
 
   read() async {
     final prefs = await SharedPreferences.getInstance();
-    final key = 'token';
+    final key = 'auth_token';
     final value = prefs.get(key ) ?? 0;
     if(value != '0'){
 //      Navigator.of(context).push(
@@ -180,9 +180,12 @@ class _MyLoginPage extends State<MyLoginPage> {
 
 
   @override
-  initState(){
+  void initState(){
+    super.initState();
     read();
   }
+
+
 
 
   DatabaseHelper databaseHelper = new DatabaseHelper();
@@ -193,24 +196,44 @@ class _MyLoginPage extends State<MyLoginPage> {
 
 
   _onPressed(){
-    setState(() {
-      if(_emailController.text.trim().toLowerCase().isNotEmpty &&
+    if(_emailController.text.trim().toLowerCase().isNotEmpty &&
           _passwordController.text.trim().isNotEmpty ){
 
-
+      setState(() {
         databaseHelper.loginData(_emailController.text.trim().toLowerCase(),
-            _passwordController.text.trim()).whenComplete((){
+            _passwordController.text.trim()).whenComplete(() {
           if(databaseHelper.status){
             _showDialog();
             msgStatus = 'Check email or password';
           }else{
             //Navigator.pushReplacementNamed(context, '/dashboard');
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddIdea()));
             print('Login Good thanks.... ');
           }
-        });
-      }
+      });
     });
+    }
   }
+
+
+//  _onPressed(){
+//    setState(() {
+//      if(_emailController.text.trim().toLowerCase().isNotEmpty &&
+//          _passwordController.text.trim().isNotEmpty ){
+//        databaseHelper.loginData(_emailController.text.trim().toLowerCase(),
+//            _passwordController.text.trim()).whenComplete((){
+//          if(databaseHelper.status){
+//            _showDialog();
+//            msgStatus = 'Check email or password';
+//          }else{
+//            //Navigator.pushReplacementNamed(context, '/dashboard');
+//            //Navigator.push(context, MaterialPageRoute(builder: (context) => AddIdea()));
+//            print('Login Good thanks.... ');
+//          }
+//        });
+//      }
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -343,7 +366,7 @@ class _MyLoginPage extends State<MyLoginPage> {
               child: TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                onChanged: (String value) {},
+                //onChanged: (String value) {},
                 cursorColor: Color(0xff1B4F72),
                 decoration: InputDecoration(
                     hintText: "Email",
@@ -373,7 +396,7 @@ class _MyLoginPage extends State<MyLoginPage> {
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
-                onChanged: (String value) {},
+                //onChanged: (String value) {},
                 cursorColor: Color(0xff1B4F72),
                 decoration: InputDecoration(
                     hintText: "Password",
@@ -409,10 +432,17 @@ class _MyLoginPage extends State<MyLoginPage> {
                         fontWeight: FontWeight.w700,
                         fontSize: 18),
                   ),
-                  onPressed: () {
-                    _onPressed();
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddIdea()),
-                    );
+                  onPressed: () {_onPressed();
+//                    _onPressed();
+//                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddIdea()),
+//                    );
+//                  if(_onPressed() == true){
+//                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddIdea()));
+//                    print("Enter Done");
+//                  }else
+//                    {
+//                      print("khaled error");
+//                    }
                   },
                 ),
               )),

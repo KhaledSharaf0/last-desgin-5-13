@@ -1,10 +1,12 @@
-import 'package:finaldesgin/ui/addjob.dart';
-import 'package:finaldesgin/ui/manageidea.dart';
+//import 'package:final_design/ui/addjob.dart';
+//import 'package:final_design/ui/manageidea.dart';
 import 'package:flutter/material.dart';
 import 'package:finaldesgin/utilities/constants.dart';
+import 'package:finaldesgin/controller/database_helper.dart';
+import 'package:finaldesgin/ideas/dashboard.dart';
 
-import 'login_page.dart';
-import 'managejob.dart';
+//import 'login_page.dart';
+//import 'managejob.dart';
 
 class AddIdea extends StatefulWidget {
   @override
@@ -18,6 +20,10 @@ class AddIdeaState extends State<AddIdea> {
   @override
   //ده الي هيتحطلي من البدايه
 
+  DatabaseHelper databaseHelper = new DatabaseHelper();
+
+
+
   Widget _ideaTitle() {
     return Container(
       // alignment: Alignment.topCenter,
@@ -26,6 +32,7 @@ class AddIdeaState extends State<AddIdea> {
       height: 50.0,
       //width: 165.0,
       child: TextField(
+        controller: _ideaTitleController,
         keyboardType: TextInputType.emailAddress,
         style: TextStyle(
           color: Color(0xFF0a2f52),
@@ -54,6 +61,7 @@ class AddIdeaState extends State<AddIdea> {
       height: 50.0,
       //width: 165.0,
       child: TextField(
+        controller: _ideaCategoryController,
         keyboardType: TextInputType.emailAddress,
         style: TextStyle(
           color: Color(0xFF0a2f52),
@@ -82,6 +90,7 @@ class AddIdeaState extends State<AddIdea> {
       height: 50.0,
       // width: 150.0,
       child: TextField(
+        controller: _fundingController,
         keyboardType: TextInputType.number,
         style: TextStyle(
           color: Color(0xFF0a2f52),
@@ -110,6 +119,7 @@ class AddIdeaState extends State<AddIdea> {
       height: 50.0,
       // width: 150.0,
       child: TextField(
+        controller: _managementTypeController,
         keyboardType: TextInputType.emailAddress,
         style: TextStyle(
           color: Color(0xFF0a2f52),
@@ -138,6 +148,7 @@ class AddIdeaState extends State<AddIdea> {
       height: 50.0,
       // width: 150.0,
       child: TextField(
+        controller: _addressController,
         keyboardType: TextInputType.emailAddress,
         style: TextStyle(
           color: Color(0xFF0a2f52),
@@ -166,6 +177,7 @@ class AddIdeaState extends State<AddIdea> {
       height: 150.0,
       //width: MediaQuery.of(context).size.width,
       child: TextField(
+        controller: _ideaDescriptionController,
         keyboardType: TextInputType.multiline,
         style: TextStyle(
           color: Color(0xFF0a2f52),
@@ -220,8 +232,20 @@ class AddIdeaState extends State<AddIdea> {
       width: 150.0,
       child: RaisedButton(
         elevation: 20.0,
-        onPressed: (){
-
+        onPressed: () {
+          databaseHelper.addDataIdea(
+              _ideaTitleController.text.trim(),
+              _managementTypeController.text.trim(),
+              _ideaCategoryController.text.trim(),
+              _addressController.text.trim(),
+              _fundingController.text.trim(),
+              _ideaDescriptionController.text.trim());
+//          Navigator.of(context).push(
+//              new MaterialPageRoute(
+//                builder: (BuildContext context) => new Dashboard(),
+//              )
+//          );
+          print("Save");
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -242,52 +266,69 @@ class AddIdeaState extends State<AddIdea> {
     );
   }
 
+
+  final TextEditingController _ideaTitleController =
+  new TextEditingController();
+  final TextEditingController _ideaCategoryController =
+  new TextEditingController();
+  final TextEditingController _fundingController = new TextEditingController();
+  final TextEditingController _managementTypeController =
+  new TextEditingController();
+  final TextEditingController _addressController = new TextEditingController();
+  final TextEditingController _ideaDescriptionController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Add Idea',
-            style: TextStyle(
-              fontSize: 18.0,
-            ),
+      appBar: AppBar(
+        title: Text(
+          'Add Idea',
+          style: TextStyle(
+            fontSize: 22.0,
           ),
-          centerTitle: true,
-          //backgroundColor: Color(0xffEC7063),
-          backgroundColor: Colors.transparent,
         ),
-        // yellow backgroundColor: Color(0xffF7DC6F),
+        centerTitle: true,
         //backgroundColor: Color(0xffEC7063),
-        backgroundColor: Color(0xff2E86C1),
-        body: ListView(
-          //padding: EdgeInsets.only(top: 0),
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                /* Container(
-                  padding: EdgeInsets.only(top: 150.0),
-                  child: ClipPath(
-                    clipper: WaveClipper2(),
-                    child: Container(
-                      padding: EdgeInsets.only(),
-                      width: double.infinity,
-                      height: 485,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Color(0xff5DADE2),
-                              Color(0xffF2F3F4),
-                            ],
-                          )),
-                    ),
+        //backgroundColor: Color(0xFFdadada),
+        //backgroundColor: Color(0xff2E86C1),
+        //backgroundColor: Color(0xFF233f5c),
+        backgroundColor: Colors.transparent,
+      ),
+      // yellow backgroundColor: Color(0xffF7DC6F),
+      //backgroundColor: Color(0xffEC7063),
+      backgroundColor: Color(0xff2E86C1),
+      //backgroundColor: Color(0xFFdadada),
+      body: ListView(
+        //padding: EdgeInsets.only(top: 0),
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              /*  Container(
+                padding: EdgeInsets.only(top: 150.0),
+                child: ClipPath(
+                  clipper: WaveClipper2(),
+                  child: Container(
+                    padding: EdgeInsets.only(),
+                    width: double.infinity,
+                    height: 485,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+//                        Color(0xff5DADE2),
+//                        Color(0xffF2F3F4),
+                        Color(0xff2E86C1),
+                        Color(0xff85C1E9)
+                      ],
+                    )),
                   ),
                 ),
+              ),
 
-                 */
+              */
 
-                /*  Container(
+              /*
+                Container(
                padding: EdgeInsets.only(top: 450),
                child:  ClipPath(
                  clipper: WaveClipper3(),
@@ -296,89 +337,71 @@ class AddIdeaState extends State<AddIdea> {
                    height: 350,
                    decoration: BoxDecoration(
                        gradient: LinearGradient(colors: [
-                         Color(0xffF1C40F),
-                         Color(0xffF1C40F),
-                         Color(0xffF1C40F),
-                         Color(0xff85C1E9)
+//                           Color(0xffF1C40F),
+//                         Color(0xffF1C40F),
+//                         Color(0xffF1C40F),
+//                         Color(0xff85C1E9)
+
+                         Color(0xFF0a2f52),
+                         Color(0xff2E86C1),
+                         Color(0xFFdadada),
                        ])),
                  ),
                ),
-             ),
-
-             */
-                ClipPath(
-                  clipper: WaveClipper1(),
-                  child: Container(
-                    width: double.infinity,
-                    height: 350,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF0a2f52),
-                            Color(0xff2E86C1),
-                          ],
-                        )),
-                  ),
+             ),*/
+              ClipPath(
+                clipper: WaveClipper1(),
+                child: Container(
+                  width: double.infinity,
+                  height: 350,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF0a2f52),
+                          Color(0xff2E86C1),
+                        ],
+                      )),
                 ),
-                Stack(
-/*
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF337db1),
-                Color(0xFF0a2f52),
-                Color(0xFF0a2f52),
-                Color(0xFF0a2f52),
-              ],
-              stops: [
-                0.1,
-                0.3,
-                0.5,
-                0.7
-              ],
-            ),
-          ),*/
-                  children: <Widget>[
-                    SingleChildScrollView(
-                      //padding: EdgeInsets.only(top: 0.0),
-
-                      physics: AlwaysScrollableScrollPhysics(),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          //Padding(padding: EdgeInsets.all(10.0)),
-                          Container(
-                            //Controlling the white place Shape
-                            height: 650.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(75.0),
-                                bottomRight: Radius.circular(75.0),
-                                // bottomLeft: Radius.circular(75.0),
-                                //   topRight: Radius.circular(75.0)
-                              ),
+              ),
+              Stack(
+                children: <Widget>[
+                  SingleChildScrollView(
+                    //padding: EdgeInsets.only(top: 0.0),
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        //Padding(padding: EdgeInsets.all(10.0)),
+                        Container(
+                          //Controlling the white place Shape
+                          height: 650.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(75.0),
+                              bottomRight: Radius.circular(75.0),
+                              // bottomLeft: Radius.circular(75.0),
+                              //   topRight: Radius.circular(75.0)
                             ),
-                            padding: EdgeInsets.all(20.0),
+                          ),
+                          padding: EdgeInsets.all(20.0),
 
-                            //Stack That Controlling Data In Container
-                            child: Stack(
-                              //primary: false,
-                              //padding: EdgeInsets.only(left: 25.0, right: 20.0),
-                              children: <Widget>[
-                                ListView(
-                                  children: <Widget>[
-                                    Container(
-                                      height:
-                                      MediaQuery.of(context).size.height * 1.3,
-                                      padding: EdgeInsets.only(top: 30.0),
-                                      alignment: Alignment.topCenter,
-                                      child: Column(
-                                        children: <Widget>[
-                                          // Padding(padding: EdgeInsets.only(top: 2.0)),
+                          //Stack That Controlling Data In Container
+                          child: Stack(
+                            //primary: false,
+                            //padding: EdgeInsets.only(left: 25.0, right: 20.0),
+                            children: <Widget>[
+                              ListView(
+                                children: <Widget>[
+                                  Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        1.3,
+                                    padding: EdgeInsets.only(top: 30.0),
+                                    alignment: Alignment.topCenter,
+                                    child: Column(
+                                      children: <Widget>[
+                                        // Padding(padding: EdgeInsets.only(top: 2.0)),
 
 //                                        Row(
 //                                          children: <Widget>[
@@ -390,257 +413,98 @@ class AddIdeaState extends State<AddIdea> {
 //                                          ],
 //                                        ),
 
-                                          _ideaTitle(),
+                                        _ideaTitle(),
 
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
 
-                                          _ideaCategory(),
+                                        _ideaCategory(),
 
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
 
-                                          _funding(),
+                                        _funding(),
 
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
 
-                                          _managementType(),
+                                        _managementType(),
 
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
 
-                                          _address(),
+                                        _address(),
 
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
-                                          _ideaDescription(),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
+                                        _ideaDescription(),
 
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
 
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: <Widget>[
 //                                              _buildLoginBtn(),
 //                                              SizedBox(
 //                                                width: 20,
 //                                              ),
-                                              _buildLoginBtns(),
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                            _buildLoginBtns(),
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ],
-                                )
-                              ],
-                            ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        drawer: Drawer(
-          child: Column(
-            children: [
-              Container(
-                height: 290.0,
-                alignment: Alignment.center,
-                color: Color(0xFF0a2f52),
-                //color:Color(0xffEC7063),
-                //color: Colors.deepPurpleAccent,
-                child: DrawerHeader(
-                  //padding: EdgeInsets.only(top: 0),
-                  //margin: EdgeInsets.only(left:  2),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Color(0xFF0a2f52)),
-                    image: DecorationImage(
-                      image: AssetImage("image/logo.png"),
-                      fit: BoxFit.fitHeight,
+                        ),
+                      ],
                     ),
                   ),
-
-//                  child: Text(
-////                  "Main",
-////                  style: TextStyle(fontSize: 30, color: Colors.white),
-////                ),
-                ),
-
-                // ),
-              ),
-              Expanded(
-                //flex: 1,
-                child: ListView(children: [
-                  Container(
-                      color: Colors.white,
-                      height: 500,
-                      child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            title: Text(
-                              "Dashboard",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: Color(0xFF0a2f52),
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.dashboard,
-                              color: Color(0xFF0a2f52),
-                              size: 25,
-                            ),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          ListTile(
-                            title: Text(
-                              "Add A New Job",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: Color(0xFF0a2f52),
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.add,
-                              color: Color(0xFF0a2f52),
-                              size: 25,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddJobs()),
-                              );
-                            },
-                          ),
-                          ListTile(
-                            title: Text(
-                              "Add A New Idea",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: Color(0xFF0a2f52),
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.add,
-                              color: Color(0xFF0a2f52),
-                              size: 25,
-                            ),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          ListTile(
-                            title: Text(
-                              "Manage Jobs",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: Color(0xFF0a2f52),
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.business_center,
-                              color: Color(0xFF0a2f52),
-                              size: 25,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ManageJob()),
-                              );
-                            },
-                          ),
-                          ListTile(
-                            title: Text(
-                              "Manage Idea",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: Color(0xFF0a2f52),
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.edit_attributes,
-                              color: Color(0xFF0a2f52),
-                              size: 25,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ManageIdea()),
-                              );
-                            },
-                          ),
-                          ListTile(
-                            title: Text(
-                              "Edit Profile",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: Color(0xFF0a2f52),
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.edit,
-                              color: Color(0xFF0a2f52),
-                              size: 25,
-                            ),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-
-                          FloatingActionButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyLoginPage()),
-                              );
-                            },
-                            tooltip: "Sign Out",
-                            child: Icon(
-                              Icons.call_missed,
-                              size: 55.0,
-                            ),
-                            backgroundColor: Color(0xFF0a2f52),
-                            //focusColor: Colors.pinkAccent,
-                          ),
-                          SizedBox(
-                            height: 12.0,
-                          ),
-                          // Padding(padding: EdgeInsets.only(top: 10.0,right: 100.0)),
-                          Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                color: Color(0xFF337db1),
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0),
-                          )
-                        ],
-                      ))
-                ]),
+                ],
               ),
             ],
           ),
-        ));
+        ],
+      ),
+    );
   }
+
+//
+//
+//  void _showDialog(){
+//    showDialog(
+//        context:context ,
+//        builder:(BuildContext context){
+//          return AlertDialog(
+//            title: new Text('Failed'),
+//            content:  new Text('Check your email or password'),
+//            actions: <Widget>[
+//              new RaisedButton(
+//
+//                child: new Text(
+//                  'Close',
+//                ),
+//
+//                onPressed: (){
+//                  Navigator.of(context).pop();
+//                },
+//
+//              ),
+//            ],
+//          );
+//        }
+//    );
+//  }
 }
 
 class WaveClipper1 extends CustomClipper<Path> {
@@ -700,8 +564,8 @@ class WaveClipper1 extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
-}*/
-
+}
+*/
 class WaveClipper2 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -728,8 +592,6 @@ class WaveClipper2 extends CustomClipper<Path> {
     return false;
   }
 }
-
-
 
 /*
 import 'package:final_design/ui/addjob.dart';

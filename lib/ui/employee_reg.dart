@@ -1,4 +1,4 @@
-import 'package:finaldesgin/ui/addjob.dart';
+import 'file:///E:/khaled/finaldesign/finaldesgin/lib/jobs/addjob.dart';
 import 'package:flutter/material.dart';
 import 'package:finaldesgin/utilities/constants.dart';
 

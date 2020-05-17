@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:finaldesgin/controller/database_helper.dart';
+import 'package:finaldesgin/jobs/addjob.dart';
 import 'file:///E:/khaled/finaldesign/finaldesgin/lib/ideas/addidea.dart';
 import 'package:finaldesgin/ui/forget_password.dart';
 import 'package:flutter/material.dart';
@@ -163,12 +164,11 @@ class _MyLoginPage extends State<MyLoginPage> {
     );
   }*/
 
-
   read() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'auth_token';
-    final value = prefs.get(key ) ?? 0;
-    if(value != '0'){
+    final value = prefs.get(key) ?? 0;
+    if (value != '0') {
 //      Navigator.of(context).push(
 //          new MaterialPageRoute(
 //            builder: (BuildContext context) => new AddIdea(),
@@ -178,15 +178,11 @@ class _MyLoginPage extends State<MyLoginPage> {
     }
   }
 
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     read();
   }
-
-
-
 
   DatabaseHelper databaseHelper = new DatabaseHelper();
   String msgStatus = '';
@@ -194,27 +190,28 @@ class _MyLoginPage extends State<MyLoginPage> {
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
 
-
-  _onPressed(){
-    if(_emailController.text.trim().toLowerCase().isNotEmpty &&
-          _passwordController.text.trim().isNotEmpty ){
-
+  _onPressed() {
+    if (_emailController.text.trim().toLowerCase().isNotEmpty &&
+        _passwordController.text.trim().isNotEmpty) {
       setState(() {
-        databaseHelper.loginData(_emailController.text.trim().toLowerCase(),
-            _passwordController.text.trim()).whenComplete(() {
-          if(databaseHelper.status){
+        databaseHelper
+            .loginData(_emailController.text.trim().toLowerCase(),
+                _passwordController.text.trim())
+            .whenComplete(() {
+          if (databaseHelper.status) {
             _showDialog();
             msgStatus = 'Check email or password';
-          }else{
+          } else {
             //Navigator.pushReplacementNamed(context, '/dashboard');
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AddIdea()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AddIdea()));
+            //Navigator.push(context, MaterialPageRoute(builder: (context) => AddJobs()));
             print('Login Good thanks.... ');
           }
+        });
       });
-    });
     }
   }
-
 
 //  _onPressed(){
 //    setState(() {
@@ -246,8 +243,6 @@ class _MyLoginPage extends State<MyLoginPage> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-
-
               ClipPath(
                 clipper: WaveClipper2(),
                 child: Container(
@@ -257,15 +252,13 @@ class _MyLoginPage extends State<MyLoginPage> {
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [
 //                        Color(0xFF0a2f52),
-                        Color(0xff2E86C1),
+                    Color(0xff2E86C1),
 //                    Color(0xff85C1E9),
 //                    Color(0xff5DADE2),
                     Color(0xff85C1E9)
                   ])),
                 ),
               ),
-
-
               ClipPath(
                 clipper: WaveClipper3(),
                 child: Container(
@@ -276,10 +269,10 @@ class _MyLoginPage extends State<MyLoginPage> {
                       gradient: LinearGradient(colors: [
 //                        Color(0xff2E86C1),
 //                        Color(0xffe6e6e6),
-                        Color(0xFF0a2f52),
-                        Color(0xff2E86C1),
+                    Color(0xFF0a2f52),
+                    Color(0xff2E86C1),
 //                        Color(0xffe6e6e6),
-                        Color(0xFFdadada),
+                    Color(0xFFdadada),
 
 //                    Color(0xffF1C40F),
 //                    Color(0xffF1C40F),
@@ -288,9 +281,6 @@ class _MyLoginPage extends State<MyLoginPage> {
                   ])),
                 ),
               ),
-
-
-
               ClipPath(
                 clipper: WaveClipper1(),
                 child: Container(
@@ -318,18 +308,18 @@ class _MyLoginPage extends State<MyLoginPage> {
                                 Text('Success',
                                     style: TextStyle(
                                         fontFamily: 'co',
-                                        color:Color(0xFFe7e7e7),
+                                        color: Color(0xFFe7e7e7),
                                         //color: Color.fromRGBO(231, 231, 231, 1),
                                         //color: Colors.amberAccent,
                                         fontStyle: FontStyle.italic,
-                                        
+
                                         //fontWeight: FontWeight.bold,
                                         fontSize: 50.0)),
                                 SizedBox(width: 10.0),
                                 Text('Road',
                                     style: TextStyle(
                                         fontFamily: 'co',
-                                        color:Color(0xFFe7e7e7),
+                                        color: Color(0xFFe7e7e7),
                                         //color: Color.fromRGBO(231, 231, 231, 1),
                                         //color: Colors.amberAccent,
                                         fontStyle: FontStyle.italic,
@@ -395,7 +385,7 @@ class _MyLoginPage extends State<MyLoginPage> {
               child: TextField(
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
+                //obscureText: true,
                 //onChanged: (String value) {},
                 cursorColor: Color(0xff1B4F72),
                 decoration: InputDecoration(
@@ -432,7 +422,8 @@ class _MyLoginPage extends State<MyLoginPage> {
                         fontWeight: FontWeight.w700,
                         fontSize: 18),
                   ),
-                  onPressed: () {_onPressed();
+                  onPressed: () {
+                    _onPressed();
 //                    _onPressed();
 //                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddIdea()),
 //                    );
@@ -452,7 +443,9 @@ class _MyLoginPage extends State<MyLoginPage> {
           Center(
             child: FlatButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForgetPassword()),
                   );
                 },
                 child: Text(
@@ -622,30 +615,25 @@ class _MyLoginPage extends State<MyLoginPage> {
     );
   }*/
 
-
-  void _showDialog(){
+  void _showDialog() {
     showDialog(
-        context:context ,
-        builder:(BuildContext context){
+        context: context,
+        builder: (BuildContext context) {
           return AlertDialog(
             title: new Text('Failed'),
-            content:  new Text('Check your email or password'),
+            content: new Text('Check your email or password'),
             actions: <Widget>[
               new RaisedButton(
-
                 child: new Text(
                   'Close',
                 ),
-
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
-
               ),
             ],
           );
-        }
-    );
+        });
   }
 }
 

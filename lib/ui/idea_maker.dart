@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:finaldesgin/utilities/constants.dart';
 
-import 'addjob.dart';
+import '../jobs/addjob.dart';
 
 
 void main(){

@@ -240,11 +240,11 @@ class AddIdeaState extends State<AddIdea> {
               _addressController.text.trim(),
               _fundingController.text.trim(),
               _ideaDescriptionController.text.trim());
-//          Navigator.of(context).push(
-//              new MaterialPageRoute(
-//                builder: (BuildContext context) => new Dashboard(),
-//              )
-//          );
+          Navigator.of(context).push(
+              new MaterialPageRoute(
+                builder: (BuildContext context) => new Dashboard(),
+              )
+          );
           print("Save");
         },
         padding: EdgeInsets.all(15.0),
